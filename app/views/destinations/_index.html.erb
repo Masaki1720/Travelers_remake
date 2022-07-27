@@ -1,0 +1,12 @@
+<% destinations.each do |destination| %>
+<div>
+  <%= link_to destination_path(destination.id) do %>
+    <%= image_tag destination.get_image(200,300) %>
+  <% end %>
+  <p><%= image_tag destination.user.get_profile_image(100,100) %></p>
+  <p>スポット名：<%= destination.spot_name %></p>
+  <p>説明：<%= destination.spot_introduction %></p>
+  <p>ユーザーネーム：<%= destination.user.name %></p>
+  <p><%= link_to "#{destination.post_comments.count} コメント", destination_path(destination.id) %></p>
+</div>
+<% end %>

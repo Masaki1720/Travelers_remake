@@ -1,0 +1,51 @@
+<div>
+  <%= image_tag @destination.get_image(200,300) %>
+  <p>スポット名：<%= @destination.spot_name %></p>
+  <p>説明：<%= @destination.spot_introduction %></p>
+  <p><%= image_tag @destination.user.get_profile_image(100,100) %></p>
+  <p>ユーザーネーム：<%= @destination.user.name %></p>
+  <p>投稿日：<%= @destination.created_at.strftime('%Y/%m/%d') %></p>
+
+  <% if @destination.user == current_user %>
+    <%= link_to "編集", edit_destination_path(@destination), method: :get %>
+  <% end %>
+
+  <% if @destination.user == current_user %>
+    <%= link_to "削除", destination_path(@destination), method: :delete %>
+  <% end %>
+
+  <% if @destination.favorited_by?(current_user) %>
+    <p>
+      <%= link_to destination_favorites_path(@destination), method: :delete do %>
+        ♥<%= @destination.favorites.count %> いいね
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to destination_favorites_path(@destination), method: :post do %>
+        ♡<%= @destination.favorites.count %> いいね
+      <% end %>
+    </p>
+  <% end %>
+
+  <div>
+    <p>コメント件数：<%= @destination.post_comments.count %></p>
+    <% @destination.post_comments.each do |post_comment| %>
+      <p><%= image_tag post_comment.user.get_profile_image(100,100) %></p>
+      <%= post_comment.user.name %>
+      <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
+
+      <% if post_comment.user == current_user %>
+       <%= link_to "削除", destination_post_comment_path(post_comment.destination, post_comment), method: :delete %>
+      <% end %>
+
+    <% end %>
+  </div>
+  <div>
+    <%= form_with model: [@destination, @post_comment] do |f| %>
+      <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+      <%= f.submit "送信する" %>
+    <% end %>
+  </div>
+
+</div>

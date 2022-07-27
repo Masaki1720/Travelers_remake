@@ -1,0 +1,20 @@
+<h1>投稿フォーム</h1>
+
+  <% if @destination.errors.any? %>
+  <%= @destination.errors.count %>件のエラーが発生しました
+  <ul>
+    <% @destination.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+  <%= form_with model: @destination, method: :post do |f| %>
+    <h4>画像</h4>
+      <%= f.file_field :image, accept: "image/*" %>
+    <h4>スポット名</h4>
+      <%= f.text_field :spot_name %>
+    <h4>説明</h4>
+      <%= f.text_area :spot_introduction %>
+    <%= f.submit '投稿' %>
+  <% end %>
