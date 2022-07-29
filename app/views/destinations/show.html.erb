@@ -2,8 +2,15 @@
   <%= image_tag @destination.get_image(200,300) %>
   <p>スポット名：<%= @destination.spot_name %></p>
   <p>説明：<%= @destination.spot_introduction %></p>
+
+  <%= link_to user_path(@destination.user.id) do %>
   <p><%= image_tag @destination.user.get_profile_image(100,100) %></p>
-  <p>ユーザーネーム：<%= @destination.user.name %></p>
+  <% end %>
+
+
+  <p>ユーザーネーム：<%= link_to user_path(@destination.user.id) do %><%= @destination.user.name %></p>
+  <% end %>
+
   <p>投稿日：<%= @destination.created_at.strftime('%Y/%m/%d') %></p>
 
   <% if @destination.user == current_user %>
@@ -47,5 +54,9 @@
       <%= f.submit "送信する" %>
     <% end %>
   </div>
+
+  <% if current_user.admin? && !(current_user == @destination.user) %>
+    <%= link_to "delete", @destination, method: :delete, data: { confirm: "You sure?" } %>
+  <% end %>
 
 </div>
