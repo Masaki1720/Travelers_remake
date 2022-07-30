@@ -2,6 +2,9 @@
   <%= image_tag @destination.get_image(200,300) %>
   <p>スポット名：<%= @destination.spot_name %></p>
   <p>説明：<%= @destination.spot_introduction %></p>
+  <p>交通機関で利用可能な決済手段：<%= @destination.transportation_pays %></p>
+  <p>現地で利用可能な決済手段：<%= @destination.destination_pays %></p>
+  <p>宿泊先で利用可能な決済手段：<%= @destination.hotel_pays %></p>
 
   <%= link_to user_path(@destination.user.id) do %>
   <p><%= image_tag @destination.user.get_profile_image(100,100) %></p>

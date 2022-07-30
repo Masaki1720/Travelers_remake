@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_29_123921) do
+ActiveRecord::Schema.define(version: 2022_07_30_034759) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -54,6 +54,10 @@ ActiveRecord::Schema.define(version: 2022_07_29_123921) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
+    t.boolean "checkbox"
+    t.text "transportation_pays"
+    t.text "destination_pays"
+    t.text "hotel_pays"
   end
 
   create_table "favorites", force: :cascade do |t|

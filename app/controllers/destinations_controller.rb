@@ -45,7 +45,7 @@ class DestinationsController < ApplicationController
   private
 
   def destination_params
-    params.require(:destination).permit(:spot_name, :spot_introduction, :image)
+    params.require(:destination).permit(:spot_name, :spot_introduction, :image, :checkbox,transportation_pays:[], destination_pays:[], hotel_pays:[])
   end
 
 end

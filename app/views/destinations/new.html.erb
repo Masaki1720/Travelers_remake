@@ -9,12 +9,53 @@
   </ul>
 <% end %>
 
+<div>
   <%= form_with model: @destination, method: :post do |f| %>
     <h4>画像</h4>
-      <%= f.file_field :image, accept: "image/*" %>
+    <%= f.file_field :image, accept: "image/*" %>
+
     <h4>スポット名</h4>
-      <%= f.text_field :spot_name %>
+    <%= f.text_field :spot_name %>
+
     <h4>説明</h4>
-      <%= f.text_area :spot_introduction %>
+    <%= f.text_area :spot_introduction %>
+
+    <h4>交通機関での支払い</h4>
+    <div class="field">
+      <% %w(Cash Creditcard Debitcard PrepaidIC Applepay QRcode Paypay).each.with_index do |transportation_pay,i| %>
+      <label>
+      <%= check_box_tag 'destination[transportation_pays][]', transportation_pay,false,id:"destination_transportation_pays_#{i}"%>
+      <%= transportation_pay %>
+      </label>
+      <% end %>
+    </div>
+
+    <h4>現地での支払い</h4>
+    <div class="field">
+      <% %w(Cash Creditcard Debitcard PrepaidIC Applepay QRcode Paypay).each.with_index do |destination_pay,i| %>
+      <label>
+      <%= check_box_tag 'destination[destination_pays][]', destination_pay,false,id:"destination_destination_pays_#{i}"%>
+      <%= destination_pay %>
+      </label>
+      <% end %>
+    </div>
+
+    <h4>宿泊先での支払い</h4>
+    <div class="field">
+      <% %w(Cash Creditcard Debitcard PrepaidIC Applepay QRcode Paypay).each.with_index do |hotel_pay,i| %>
+      <label>
+      <%= check_box_tag 'destination[hotel_pays][]', hotel_pay,false,id:"destination_hotel_pays_#{i}"%>
+      <%= hotel_pay %>
+      </label>
+      <% end %>
+    </div>
+
+    <div>
     <%= f.submit '投稿' %>
+    </div>
   <% end %>
+</div>
+
+<div>
+
+</div>
