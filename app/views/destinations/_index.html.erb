@@ -1,20 +1,37 @@
-<% destinations.each do |destination| %>
-<div>
-  <%= link_to destination_path(destination.id) do %>
-  <%= image_tag destination.get_image(200,300) %>
-  <% end %>
+<div class="container">
+  <h3 class="pt-3">All Posts</h3>
+  <div class="row card-list py-2">
+    <% destinations.each do |destination| %>
+    <div class="col-md-4 mt-3">
+      <div class="card h-100 shadow-lg">
+        <div>
+         <%= link_to destination_path(destination.id) do %>
+         <%= image_tag destination.get_image(300,400), class:"card-img-top"; %>
+         <% end %>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-2">
+              <%= image_tag destination.user.get_profile_image(40,40), class:"mt-3 rounded-circle"; %>
+            </div>
+            <div class="col-10">
+              <p class="card-title">
+               <%= link_to(destination_path(destination.id), class:"text-dark") do %>
+                <strong><i class="far fa-flag"></i><span> <%= destination.spot_name %></span></strong>
+               <% end %>
+              </p>
+              <p class="card-text">Introduction：</br><%= destination.spot_introduction.truncate(60) %></p>
+              <span><i class="fas fa-user"></i> By <%= destination.user.name %> ｜ </span>
+              <span><%= link_to "#{destination.post_comments.count} コメント", destination_path(destination.id), class:"text-dark" %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <%= paginate @destinations %>
 </div>
 
-<div>
-  <%= link_to user_path(destination.user.id) do %>
-  <%= image_tag destination.user.get_profile_image(100,100) %></p>
-  <% end %>
-</div>
 
-<div>
-  <p>ユーザーネーム：<%= link_to destination.user.name, user_path(destination.user.id) %></p>
-  <p>スポット名：<%= destination.spot_name %></p>
-  <p>説明：<%= destination.spot_introduction %></p>
-  <p><%= link_to "#{destination.post_comments.count} コメント", destination_path(destination.id) %></p>
-</div>
-<% end %>
+

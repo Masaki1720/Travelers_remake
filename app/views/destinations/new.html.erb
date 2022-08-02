@@ -8,17 +8,35 @@
     <% end %>
   </ul>
 <% end %>
-
+<p>"*" is required field.（*は必須入力）</p>
 <div>
   <%= form_with model: @destination, method: :post do |f| %>
-    <h4>画像</h4>
+    <h4>画像*</h4>
     <%= f.file_field :image, accept: "image/*" %>
 
-    <h4>スポット名</h4>
+    <h4>スポット名*</h4>
     <%= f.text_field :spot_name %>
 
     <h4>説明</h4>
     <%= f.text_area :spot_introduction %>
+
+    <h4>県*</h4>
+    <div>
+      <%= f.label :prefecture %>
+      <%= f.select :prefecture, Destination.prefectures.keys, {} %>
+    </div>
+
+    <h4>市町村*</h4>
+    <%= f.text_field :city %>
+
+    <h4>交通機関*</h4>
+    <%= f.text_field :transportation %>
+
+    <h4>ルート</h4>
+    <%= f.text_area :route %>
+
+    <h4>宿泊地</h4>
+    <%= f.text_field :hotel %>
 
     <h4>交通機関での支払い</h4>
     <div class="field">
@@ -50,12 +68,14 @@
       <% end %>
     </div>
 
+    <h4>外貨両替所</h4>
+    <%= f.text_field :exchange %>
+
+    <h4>その他情報</h4>
+    <%= f.text_area :other_info %>
+
     <div>
     <%= f.submit '投稿' %>
     </div>
   <% end %>
-</div>
-
-<div>
-
 </div>

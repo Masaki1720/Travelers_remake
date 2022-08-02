@@ -6,7 +6,7 @@ class DestinationsController < ApplicationController
   end
 
   def index
-    @destinations = Destination.all
+    @destinations = Destination.page(params[:page]).order(created_at: :desc)
   end
 
   def new
@@ -45,7 +45,7 @@ class DestinationsController < ApplicationController
   private
 
   def destination_params
-    params.require(:destination).permit(:spot_name, :spot_introduction, :image, :checkbox,transportation_pays:[], destination_pays:[], hotel_pays:[])
+    params.require(:destination).permit(:spot_name, :spot_introduction, :image, :prefecture, :city, :transportation, :route, :hotel, :exchange, :other_info, :checkbox,transportation_pays:[], destination_pays:[], hotel_pays:[])
   end
 
 end
