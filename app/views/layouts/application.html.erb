@@ -63,38 +63,59 @@
                 <strong>Log out</strong>
               </li>
               <% end %>
-          </div>
-
-      <% else %>
-         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="#"><%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %></a>
-              </li>
             </ul>
           </div>
 
+        <% else %>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav mr-1">
+              <%= link_to root_path, class: 'btn btn-outline-secondary text-white' do %>
               <li class="nav-item active">
-                <a class="nav-link" href="#"><%= link_to "新規登録", new_user_registration_path %><a>
+                <strong>Home</strong>
               </li>
+              <% end %>
             </ul>
-          </div>
+            <ul class="navbar-nav mr-1">
+              <%= link_to users_guest_sign_in_path, method: :post, class: 'btn btn-outline-secondary text-white' do %>
+              <li class="nav-item active">
+                <strong>Guest Login</strong>
+              </li>
+              <% end %>
+            </ul>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav mr-1">
+              <%= link_to new_user_registration_path, class: 'btn btn-outline-secondary text-white' do %>
               <li class="nav-item active">
-                <a class="nav-link" href="#"><%= link_to "ログイン", new_user_session_path %><a>
+                <strong>Sign up</strong>
               </li>
+              <% end %>
             </ul>
-          </div>
+
+            <ul class="navbar-nav mr-1">
+              <%= link_to new_user_session_path, class: 'btn btn-outline-secondary text-white' do %>
+              <li class="nav-item active">
+                <strong>Log in</strong>
+              </li>
+              <% end %>
+            </ul>
       <% end %>
       <%= render 'searches/form' %>
     </nav>
   </header>
-  <div class="col-12" style="background-color:khaki;">
+
+  <div class="col-12 pb-3" style="background-color:khaki;">
    <%= yield %>
   </div>
+
+  <footer class="bg-dark text-white">
+    <div class="row">
+      <div class="col-5 pl-5 pt-3 pb-3">
+        <%= image_tag 'logo1.2.png', size: '50x50' %>
+      </div>
+      <div class="col-5 pt-4">
+        <div>© All rights reserved by...</div>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

@@ -22,10 +22,10 @@
       <%= image_tag @user.get_profile_image(100,100), class:"rounded-circle"; %>
       <% if @user.name == "guestuser" %>
         <div class='row mt-3'>
-          <%= link_to '',edit_user_path(@user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{@user.id}" %>
+          <%= link_to '',edit_user_path(@user) %>
         </div>
       <% else %>
-        <p><%= link_to "Edit Profile", edit_user_path(@user) %></p>
+        <p><%= link_to "Edit Profile", edit_user_path %></p>
       <% end %>
     </div>
     <div>
@@ -55,7 +55,7 @@
     <% end %>
 
     <% if current_user.admin? && !(current_user == @user) %>
-        <%= link_to "delete", @user, method: :delete, data: { confirm: "You sure?" } %>
+        <%= link_to "delete", users_path, method: :delete, data: { confirm: "You sure?" } %>
     <% end %>
   </div>
   <%= paginate @destinations %>
