@@ -1,0 +1,22 @@
+<p>いいねした投稿一覧</p>
+
+<% @favorite_destinations.each do |favorite_destination| %>
+<div>
+  <%= link_to destination_path(favorite_destination.id) do %>
+   <%= image_tag favorite_destination.get_image(200,300) %>
+  <% end %>
+</div>
+
+<div>
+  <%= link_to destination_path(favorite_destination.id) do %>
+   <%= favorite_destination.spot_name %>
+  <% end %>
+</div>
+
+<div>
+  <%= link_to user_path(favorite_destination.user.id) do %>
+   <%= favorite_destination.user.name %>
+  <% end %>
+</div>
+
+<% end %>

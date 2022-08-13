@@ -1,18 +1,62 @@
-<div>
-  <h3><%= @user.name %></h3>
-  <%= image_tag @user.get_profile_image(100,100) %>
-  <p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
-</div>
+<div class="container">
+  <div class="row">
+    <div class="col-12">　</div>
+    <h4 class="col-8 pt-auto">
+      <%= @user.name %> （Nationality：<%= @user.nationality %>）
+      <%= link_to "Follow List", user_followings_path(@user.id), class: 'btn btn-success' %>
+      <%= link_to "Folower List", user_followers_path(@user.id), class: 'btn btn-success' %>
+      <%= link_to "favorites", favorites_user_path(@user), class: 'btn btn-success' %>
+    </h4>
 
-<% @destinations.each do |destination| %>
-<div>
-  <%= link_to destination_path(destination.id) do %>
-    <%= image_tag destination.get_image(200,300) %>
-  <% end %>
-  <p>ユーザーネーム：<%= destination.user.name %></p>
-  <p><%= image_tag destination.user.get_profile_image(100,100) %></p>
-  <p>スポット名：<%= destination.spot_name %></p>
-  <p>説明：<%= destination.spot_introduction %></p>
-  <p><%= link_to "#{destination.post_comments.count} コメント", destination_path(destination.id) %></p>
+    <div class="col-4 pt-auto">
+      <% if current_user.following?(@user) %>
+        <%= link_to "フォロー外す", user_relationships_path(@user.id), method: :delete, class: 'btn btn-info' %>
+      <% else %>
+        <%= link_to "フォローする", user_relationships_path(@user.id), method: :post, class: 'btn btn-info' %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-2">
+      <%= image_tag @user.get_profile_image(100,100), class:"rounded-circle"; %>
+      <% if @user.name == "guestuser" %>
+        <div class='row mt-3'>
+          <%= link_to '',edit_user_path(@user) %>
+        </div>
+      <% else %>
+        <p><%= link_to "Edit Profile", edit_user_path %></p>
+      <% end %>
+    </div>
+    <div>
+      <% if current_user.admin? %>
+        <%= link_to "ユーザー一覧", users_path %>
+      <% end %>
+    </div>
+
+    <div class="col-md-6 mb-4">
+      <h5>Introduction:</br><%= @user.introduction %></h5>
+    </div>
+
+    <div class="col-4">　</div>
+  </div>
+
+  <div class="row border-top border-dark">
+    <% @destinations.each do |destination| %>
+    <div class="col-md-3 mt-2">
+      <%= link_to destination_path(destination.id) do %>
+        <%= image_tag destination.get_image(200,300) %>
+      <% end %>
+
+      <p><%= destination.spot_name %></p>
+      <p><%= destination.spot_introduction.truncate(60) %></p>
+      <p><%= link_to "#{destination.post_comments.count} コメント", destination_path(destination.id) %></p>
+    </div>
+    <% end %>
+
+    <% if current_user.admin? && !(current_user == @user) %>
+        <%= link_to "delete", users_path, method: :delete, data: { confirm: "You sure?" } %>
+    <% end %>
+  </div>
+  <%= paginate @destinations %>
 </div>
-<% end %>

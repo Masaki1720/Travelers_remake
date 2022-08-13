@@ -5,36 +5,117 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
   <header>
-    <% if user_signed_in? %>
+    <nav class="navbar navbar-expand-lg navbar-dark text-white-50 bg-dark">
+      <div class="navbar-brand pr-5" href="#">Travelers</div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+        </button>
+        <% if user_signed_in? %>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <%= link_to root_path, class: 'btn btn-outline-secondary text-white' do %>
+              <li class="nav-item active">
+                <strong>Home</strong>
+              </li>
+              <% end %>
+            </ul>
+          </div>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <%= link_to new_destination_path, class: 'btn btn-outline-secondary text-white' do %>
+              <li class="nav-item active">
+                <strong>New Post</strong>
+              </li>
+              <% end %>
+            </ul>
+          </div>
 
-      <li>
-      <%= link_to '投稿フォーム', new_destination_path %>
-      </li>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <%= link_to user_path(current_user.id), class: 'btn btn-outline-secondary text-white' do %>
+              <li class="nav-item active">
+                <strong>Your Account</strong>
+              </li>
+              <% end %>
+            </ul>
+          </div>
 
-      <li>
-      <%= link_to 'マイページ', user_path(current_user.id) %>
-      </li>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <%= link_to destinations_path, class: 'btn btn-outline-secondary text-white' do %>
+              <li class="nav-item active">
+                <strong>All Posts</strong>
+              </li>
+              <% end %>
+            </ul>
+          </div>
 
-      <li>
-        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-      </li>
-    <% else %>
-      <li>
-        <%= link_to "新規登録", new_user_registration_path %>
-      </li>
-      <li>
-        <%= link_to "ログイン", new_user_session_path %>
-      </li>
-    <% end %>
-    <%= render 'searches/form' %>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <%= link_to destroy_user_session_path, method: :delete, class: 'btn btn-outline-secondary text-white' do %>
+              <li class="nav-item active">
+                <strong>Log out</strong>
+              </li>
+              <% end %>
+            </ul>
+          </div>
+
+        <% else %>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-1">
+              <%= link_to root_path, class: 'btn btn-outline-secondary text-white' do %>
+              <li class="nav-item active">
+                <strong>Home</strong>
+              </li>
+              <% end %>
+            </ul>
+            <ul class="navbar-nav mr-1">
+              <%= link_to users_guest_sign_in_path, method: :post, class: 'btn btn-outline-secondary text-white' do %>
+              <li class="nav-item active">
+                <strong>Guest Login</strong>
+              </li>
+              <% end %>
+            </ul>
+
+            <ul class="navbar-nav mr-1">
+              <%= link_to new_user_registration_path, class: 'btn btn-outline-secondary text-white' do %>
+              <li class="nav-item active">
+                <strong>Sign up</strong>
+              </li>
+              <% end %>
+            </ul>
+
+            <ul class="navbar-nav mr-1">
+              <%= link_to new_user_session_path, class: 'btn btn-outline-secondary text-white' do %>
+              <li class="nav-item active">
+                <strong>Log in</strong>
+              </li>
+              <% end %>
+            </ul>
+      <% end %>
+      <%= render 'searches/form' %>
+    </nav>
   </header>
-  <%= yield %>
+
+  <div class="col-12 pb-3" style="background-color:khaki;">
+   <%= yield %>
+  </div>
+
+  <footer class="bg-dark text-white">
+    <div class="row">
+      <div class="col-5 pl-5 pt-3 pb-3">
+        <%= image_tag 'logo1.2.png', size: '50x50' %>
+      </div>
+      <div class="col-5 pt-4">
+        <div>© All rights reserved by...</div>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
