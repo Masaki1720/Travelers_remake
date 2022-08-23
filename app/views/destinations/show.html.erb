@@ -1,6 +1,37 @@
 <div>
   <%= image_tag @destination.get_image(200,300) %>
   <p>スポット名：<%= @destination.spot_name %></p>
+
+  <div id='map'></div>
+
+  <style>
+  #map {
+    height: 600px;
+    width: 100%;
+  }
+  </style>
+
+  <!-- js部分 -->
+  <script>
+  //初期マップの設定
+  let map
+  let marker
+  function initMap(){
+    geocoder = new google.maps.Geocoder()
+
+    map = new google.maps.Map(document.getElementById('map'), {
+      center:  {lat: <%= @destination.lat %>, lng: <%= @destination.lng %>},
+      zoom: 15,
+    });
+
+     marker = new google.maps.Marker({
+      position:  {lat: <%= @destination.lat %>, lng: <%= @destination.lng %>},
+      map: map
+    });
+  }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2XHE1nVcWvx6DIbgHAofteq1gLZwiI8Q&callback=initMap" async defer></script>
+
   <p>説明：<%= @destination.spot_introduction %></p>
   <p>県：<%= @destination.prefecture %></p>
   <p>市町村：<%= @destination.city %></p>

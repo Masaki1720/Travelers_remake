@@ -24,4 +24,8 @@ Rails.application.routes.draw do
   end
 
   get '/search', to: 'searches#search'
+
+  get 'maps/index'
+  resources :maps, only: [:index]
+
 end

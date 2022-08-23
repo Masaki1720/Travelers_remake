@@ -45,7 +45,7 @@ class DestinationsController < ApplicationController
   private
 
   def destination_params
-    params.require(:destination).permit(:spot_name, :spot_introduction, :image, :prefecture, :city, :transportation, :route, :hotel, :exchange, :other_info, :checkbox,transportation_pays:[], destination_pays:[], hotel_pays:[])
+    params.require(:destination).permit(:spot_name, :spot_introduction, :image, :lat,:lng, :prefecture, :city, :transportation, :route, :hotel, :exchange, :other_info, :checkbox,transportation_pays:[], destination_pays:[], hotel_pays:[])
   end
 
 end
