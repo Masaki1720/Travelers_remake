@@ -1,149 +1,135 @@
-<p>"*" is required field.（*は必須入力）</p>
-<div>
-  <%= form_with model: @destination, method: :patch do |f| %>
-    <h4>画像*</h4>
-    <%= f.file_field :image, accept: "image/*" %>
-
-    <h4>スポット名*</h4>
-    <%= f.text_field :spot_name %>
-
-    <h4>説明</h4>
-    <%= f.text_area :spot_introduction %>
-
-    <h4>県*</h4>
-    <div>
-      <%= f.label :prefecture %>
-      <%= f.select :prefecture, Destination.prefectures.keys, {} %>
-    </div>
-
-    <h4>市町村*</h4>
-    <%= f.text_field :city %>
-
-    <h4>交通機関*</h4>
-    <%= f.text_field :transportation %>
-
-    <h4>ルート</h4>
-    <%= f.text_area :route %>
-
-    <h4>宿泊地</h4>
-    <%= f.text_field :hotel %>
-
-    <h4>交通機関での支払い</h4>
-    <div class="field">
-      <% %w(Cash Creditcard Debitcard PrepaidIC Applepay QRcode Paypay).each.with_index do |transportation_pay,i| %>
-      <label>
-      <%= check_box_tag 'destination[transportation_pays][]', transportation_pay,false,id:"destination_transportation_pays_#{i}"%>
-      <%= transportation_pay %>
-      </label>
+<div class="container pt-3">
+  <div class="row">
+    <div class="col-4">
+      <h4>Post form（投稿フォーム）</h4>
+      <% if @destination.errors.any? %>
+      <%= @destination.errors.count %> eroors occured.
+      <ul>
+        <% @destination.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
       <% end %>
-    </div>
-
-    <h4>現地での支払い</h4>
-    <div class="field">
-      <% %w(Cash Creditcard Debitcard PrepaidIC Applepay QRcode Paypay).each.with_index do |destination_pay,i| %>
-      <label>
-      <%= check_box_tag 'destination[destination_pays][]', destination_pay,false,id:"destination_destination_pays_#{i}"%>
-      <%= destination_pay %>
-      </label>
-      <% end %>
-    </div>
-
-    <h4>宿泊先での支払い</h4>
-    <div class="field">
-      <% %w(Cash Creditcard Debitcard PrepaidIC Applepay QRcode Paypay).each.with_index do |hotel_pay,i| %>
-      <label>
-      <%= check_box_tag 'destination[hotel_pays][]', hotel_pay,false,id:"destination_hotel_pays_#{i}"%>
-      <%= hotel_pay %>
-      </label>
-      <% end %>
-    </div>
-
-    <h4>外貨両替所</h4>
-    <%= f.text_field :exchange %>
-
-    <h4>その他情報</h4>
-    <%= f.text_area :other_info %>
-
-      <h4>場所を編集<h4>
-        <div class="actions">
-          <%= f.label :lat,"緯度" %>
-          <%= f.text_field :lat,:value =>"緯度", id: :lat %>
-          <%= f.label :lng,"経度" %>
-          <%= f.text_field :lng,:value =>"経度", id: :lng %>
+      <h6>"*" is required field.（*は必須入力）</h6>
+      <%= form_with model: @destination, method: :patch do |f| %>
+        <h6><strong>Photo（画像）*</strong></h6>
+        <%= f.file_field :image, accept: "image/*" %>
+        <h6><strong>Spot（スポット名）*</strong></h6>
+        <%= f.text_field :spot_name %>
+        <h6><strong>Introduction（説明）*</strong></h6>
+        <%= f.text_area :spot_introduction %>
+        <h6><strong>Prefecture（都道府県）*</strong></h6>
+        <%= f.select :prefecture, Destination.prefectures.keys, {} %>
+        <h6><strong>City（市町村）*</strong></h6>
+        <%= f.text_field :city %>
+        <h6><strong>Transportation（交通機関）*</strong></h6>
+        <%= f.text_field :transportation %>
+        <h6><strong>Root（ルート）*</strong></h6>
+        <%= f.text_area :route %>
+        <h6><strong>Accommodation（宿泊地）*</strong></h6>
+        <%= f.text_field :hotel %>
+        <h6><strong>Available payment method for transportation（交通機関での決済手段）</strong></h6>
+        <div class="field">
+          <% %w(Cash Creditcard Debitcard PrepaidIC Applepay QRcode Paypay).each.with_index do |transportation_pay,i| %>
+          <label>
+          <%= check_box_tag 'destination[transportation_pays][]', transportation_pay,false,id:"destination_transportation_pays_#{i}"%>
+          <%= transportation_pay %>
+          </label>
+          <% end %>
         </div>
-
-    <h2>Map</h2>
-
-    <input id="address" type="textbox" value="GeekSalon">
-    <input type="button" value="検索" onclick="codeAddress()">
-    <p>マーカーをドラック＆ドロップで位置の調整ができます。<p>
-    <div id='map'></div>
-
-    <style>
-    #map {
-      height: 600px;
-      width: 600px;
-    }
-    </style>
-
-    <script>
-    //初期マップの設定
-    let map
-    let marker
-    function initMap(){
-      geocoder = new google.maps.Geocoder()
-
-      map = new google.maps.Map(document.getElementById('map'), {
-        center:  {lat: 35.6803997, lng:139.7690174},  //東京
-        zoom: 15,
-
-      });
-    }
-
-    //検索後のマップ作成
-    let geocoder
-    let aft
-    function codeAddress(){
-      let inputAddress = document.getElementById('address').value;
-      geocoder.geocode( { 'address': inputAddress}, function(results, status) {
-        if (status == 'OK') {
-            //マーカーが複数できないようにする
-            if (aft == true){
-                marker.setMap(null);
-            }
-
-            //新しくマーカーを作成する
-            map.setCenter(results[0].geometry.location);
-                marker = new google.maps.Marker({
-                map: map,
-                position: results[0].geometry.location,
-                draggable: true // ドラッグ可能にする
-            });
-
-            //二度目以降か判断
-            aft = true
-
-            //検索した時に緯度経度を入力する
-            document.getElementById('lat').value = results[0].geometry.location.lat();
-            document.getElementById('lng').value = results[0].geometry.location.lng();
-
-            // マーカーのドロップ（ドラッグ終了）時のイベント
-            google.maps.event.addListener( marker, 'dragend', function(ev){
-                // イベントの引数evの、プロパティ.latLngが緯度経度
-                document.getElementById('lat').value = ev.latLng.lat();
-                document.getElementById('lng').value = ev.latLng.lng();
-            });
-        } else {
-          alert('該当する結果がありませんでした：' + status);
-        }
-      });
-    }
-
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2XHE1nVcWvx6DIbgHAofteq1gLZwiI8Q&callback=initMap" async defer></script>
-
-    <div>
-    <%= f.submit '更新' %>
+        <h6><strong>Available payment method at the spot（現地での決済手段）</strong></h6>
+        <div class="field">
+          <% %w(Cash Creditcard Debitcard PrepaidIC Applepay QRcode Paypay).each.with_index do |destination_pay,i| %>
+          <label>
+          <%= check_box_tag 'destination[destination_pays][]', destination_pay,false,id:"destination_destination_pays_#{i}"%>
+          <%= destination_pay %>
+          </label>
+          <% end %>
+        </div>
+        <h6><strong>Available payment method for the accommodation（宿泊地での決済手段）</strong></h6>
+        <div class="field">
+          <% %w(Cash Creditcard Debitcard PrepaidIC Applepay QRcode Paypay).each.with_index do |hotel_pay,i| %>
+          <label>
+          <%= check_box_tag 'destination[hotel_pays][]', hotel_pay,false,id:"destination_hotel_pays_#{i}"%>
+          <%= hotel_pay %>
+          </label>
+          <% end %>
+        </div>
+        <h6><strong>Currency exchange office（近くの外貨両替所）</strong></h6>
+        <%= f.text_field :exchange %>
+        <h6><strong>Othe info（その他の情報）</strong></h6>
+        <%= f.text_area :other_info %>
     </div>
-  <% end %>
+    <div class="col-8">
+      <h6><strong>Post the map（マップを投稿）</strong></h6>
+      <input id="address" type="textbox" value="Tokyo station">
+      <input type="button" value="Search" onclick="codeAddress()">
+      <div>　</div>
+      <div id='map'></div>
+      <style>
+      #map {
+        height: 800px;
+        width: 800px;
+      }
+      </style>
+
+      <script>
+      //初期マップの設定
+      let map
+      let marker
+      function initMap(){
+        geocoder = new google.maps.Geocoder()
+        map = new google.maps.Map(document.getElementById('map'), {
+          center:  {lat: 35.6803997, lng:139.7690174},  //東京
+          zoom: 15,
+        });
+      }
+      //検索後のマップ作成
+      let geocoder
+      let aft
+      function codeAddress(){
+        let inputAddress = document.getElementById('address').value;
+        geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+          if (status == 'OK') {
+              //マーカーが複数できないようにする
+              if (aft == true){
+                  marker.setMap(null);
+              }
+              //新しくマーカーを作成する
+              map.setCenter(results[0].geometry.location);
+                  marker = new google.maps.Marker({
+                  map: map,
+                  position: results[0].geometry.location,
+                  draggable: true // ドラッグ可能にする
+              });
+              //二度目以降か判断
+              aft = true
+              //検索した時に緯度経度を入力する
+              document.getElementById('lat').value = results[0].geometry.location.lat();
+              document.getElementById('lng').value = results[0].geometry.location.lng();
+              // マーカーのドロップ（ドラッグ終了）時のイベント
+              google.maps.event.addListener( marker, 'dragend', function(ev){
+                  // イベントの引数evの、プロパティ.latLngが緯度経度
+                  document.getElementById('lat').value = ev.latLng.lat();
+                  document.getElementById('lng').value = ev.latLng.lng();
+              });
+          } else {
+            alert('No result. （該当する結果がありませんでした）：' + status);
+          }
+        });
+      }
+      </script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2XHE1nVcWvx6DIbgHAofteq1gLZwiI8Q&callback=initMap" async defer></script>
+      <div class="actions">
+        <%= f.label :lat,"Lat" %>
+        <%= f.text_field :lat,:value =>"", id: :lat %>
+        <%= f.label :lng,"Lng" %>
+        <%= f.text_field :lng,:value =>"", id: :lng %>
+      </div>
+      <div class="pt-5">
+      <%= f.submit 'update', class: 'btn btn-info' %>
+      </div>
+      <% end %>
+    </div>
+  </div>
 </div>

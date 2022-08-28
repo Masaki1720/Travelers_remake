@@ -3,7 +3,7 @@
     <div class="col-4">
       <h4>Post form</h4>
       <% if @destination.errors.any? %>
-      <%= @destination.errors.count %>件のエラーが発生しました
+      <%= @destination.errors.count %> errors occured.
       <ul>
         <% @destination.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -12,23 +12,23 @@
       <% end %>
       <h6>"*" is required field.（*は必須入力）</h6>
       <%= form_with model: @destination, method: :post do |f| %>
-        <h6><strong>Photo*</strong></h6>
+        <h6><strong>Photo（画像）*</strong></h6>
         <%= f.file_field :image, accept: "image/*" %>
-        <h6><strong>Spot*</strong></h6>
+        <h6><strong>Spot（スポット名）*</strong></h6>
         <%= f.text_field :spot_name %>
-        <h6><strong>Introduction*</strong></h6>
+        <h6><strong>Introduction（説明）</strong></h6>
         <%= f.text_area :spot_introduction %>
-        <h6><strong>Prefecture*</strong></h6>
+        <h6><strong>Prefecture（県名）*</strong></h6>
         <%= f.select :prefecture, Destination.prefectures.keys, {} %>
-        <h6><strong>City*</strong></h6>
+        <h6><strong>City（市町村）*</strong></h6>
         <%= f.text_field :city %>
-        <h6><strong>Transportation*</strong></h6>
+        <h6><strong>Transportation（交通機関）</strong></h6>
         <%= f.text_field :transportation %>
-        <h6><strong>Root*</strong></h6>
+        <h6><strong>Root（ルート）</strong></h6>
         <%= f.text_area :route %>
-        <h6><strong>Accommodation*</strong></h6>
+        <h6><strong>Accommodation（宿泊地）</strong></h6>
         <%= f.text_field :hotel %>
-        <h6><strong>Available payment method for transportation</strong></h6>
+        <h6><strong>Available payment method for transportation（交通機関での決済手段）</strong></h6>
         <div class="field">
           <% %w(Cash Creditcard Debitcard PrepaidIC Applepay QRcode Paypay).each.with_index do |transportation_pay,i| %>
           <label>
@@ -37,7 +37,7 @@
           </label>
           <% end %>
         </div>
-        <h6><strong>Available payment method at the spot</strong></h6>
+        <h6><strong>Available payment method at the spot（現地での決済手段）</strong></h6>
         <div class="field">
           <% %w(Cash Creditcard Debitcard PrepaidIC Applepay QRcode Paypay).each.with_index do |destination_pay,i| %>
           <label>
@@ -46,7 +46,7 @@
           </label>
           <% end %>
         </div>
-        <h6><strong>Available payment method for the accommodation</strong></h6>
+        <h6><strong>Available payment method for the accommodation（宿泊地での決済手段）</strong></h6>
         <div class="field">
           <% %w(Cash Creditcard Debitcard PrepaidIC Applepay QRcode Paypay).each.with_index do |hotel_pay,i| %>
           <label>
@@ -55,13 +55,13 @@
           </label>
           <% end %>
         </div>
-        <h6><strong>Currency exchange office</strong></h6>
+        <h6><strong>Currency exchange office（近くの外貨両替所）</strong></h6>
         <%= f.text_field :exchange %>
-        <h6><strong>Othe info</strong></h6>
+        <h6><strong>Othe info（その他の情報）</strong></h6>
         <%= f.text_area :other_info %>
     </div>
     <div class="col-8">
-      <h6><strong>Post the map</strong></h6>
+      <h6><strong>Post the map（マップを投稿）</strong></h6>
       <input id="address" type="textbox" value="Tokyo station">
       <input type="button" value="Search" onclick="codeAddress()">
       <div>　</div>

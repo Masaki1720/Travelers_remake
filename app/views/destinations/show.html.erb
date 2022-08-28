@@ -4,10 +4,10 @@
       <%= image_tag @destination.get_image(400,400) %>
     </div>
     <div class="col-7">
-      <p>スポット名：<%= @destination.spot_name %></p>
-      <p>説明：<%= @destination.spot_introduction %></p>
-      <p>県：<%= @destination.prefecture %></p>
-      <p>市町村：<%= @destination.city %></p>
+      <h4 class="pb-3"><%= @destination.spot_name %></h4>
+      <h6>Introduction（説明）：</br><%= @destination.spot_introduction %></h6>
+      <h6 class="pt-3">Prefecture（県）：<%= @destination.prefecture %></h6>
+      <h6 class="pt-3">City（市町村）：<%= @destination.city %></h6>
     </div>
   </div>
     <div id='map'></div>
@@ -37,36 +37,37 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2XHE1nVcWvx6DIbgHAofteq1gLZwiI8Q&callback=initMap" async defer></script>
 
 
+  <h6 class="pt-3">交通機関：<%= @destination.transportation %></h6>
+  <h6 class="pt-3">ルート：<%= @destination.route %></h6>
+  <h6 class="pt-3">ホテル：<%= @destination.hotel %></h6>
+  <h6 class="pt-3">交通機関で利用可能な決済手段：<%= @destination.transportation_pays %></h6>
+  <h6 class="pt-3">現地で利用可能な決済手段：<%= @destination.destination_pays %></h6>
+  <h6 class="pt-3">宿泊先で利用可能な決済手段：<%= @destination.hotel_pays %></h6>
+  <h6 class="pt-3">外貨両替：<%= @destination.exchange %></h6>
+  <h6 class="pt-3">その他の情報：<%= @destination.other_info %></h6>
 
+  <div class="row pt-4">
+    <div class="col-2">
+      <%= link_to user_path(@destination.user.id) do %>
+      <p><%= image_tag @destination.user.get_profile_image(100,100), class:"rounded-circle"; %></p>
+      <% end %>
+    </div>
+    <div class="col-3">
+      <p>ユーザーネーム：<%= link_to user_path(@destination.user.id) do %><%= @destination.user.name %></p>
+      <% end %>
+      <p class="pt-4">投稿日：<%= @destination.created_at.strftime('%Y/%m/%d') %></p>
+    </div>
+    <div class="col-2">
+      <% if @destination.user == current_user %>
+        <%= link_to "編集", edit_destination_path(@destination), method: :get, class: 'btn btn-success' %>
+      <% end %>
 
-  <p>交通機関：<%= @destination.transportation %></p>
-  <p>ルート：<%= @destination.route %></p>
-  <p>ホテル：<%= @destination.hotel %></p>
-  <p>交通機関で利用可能な決済手段：<%= @destination.transportation_pays %></p>
-  <p>現地で利用可能な決済手段：<%= @destination.destination_pays %></p>
-  <p>宿泊先で利用可能な決済手段：<%= @destination.hotel_pays %></p>
-  <p>外貨両替：<%= @destination.exchange %></p>
-  <p>その他の情報：<%= @destination.other_info %></p>
-
-
-
-  <div class="row">
-    <%= link_to user_path(@destination.user.id) do %>
-    <p><%= image_tag @destination.user.get_profile_image(100,100) %></p>
-    <% end %>
-    <p>ユーザーネーム：<%= link_to user_path(@destination.user.id) do %><%= @destination.user.name %></p>
-    <% end %>
-
-    <p>投稿日：<%= @destination.created_at.strftime('%Y/%m/%d') %></p>
-
-    <% if @destination.user == current_user %>
-      <%= link_to "編集", edit_destination_path(@destination), method: :get %>
-    <% end %>
-
-    <% if @destination.user == current_user %>
-      <%= link_to "削除", destination_path(@destination), method: :delete %>
-    <% end %>
-
+      <% if @destination.user == current_user %>
+        <%= link_to "削除", destination_path(@destination), method: :delete, class: 'btn btn-danger' %>
+      <% end %>
+    </div>
+  </div>
+  <div>
     <% if @destination.favorited_by?(current_user) %>
       <p>
         <%= link_to destination_favorites_path(@destination), method: :delete do %>

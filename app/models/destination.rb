@@ -8,7 +8,6 @@ class Destination < ApplicationRecord
   validates :image, presence: true
   validates :prefecture, presence: true
   validates :city, presence: true
-  validates :transportation, presence: true
 
   enum prefecture:{
      "---":0,
