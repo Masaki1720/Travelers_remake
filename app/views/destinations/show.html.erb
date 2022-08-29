@@ -36,15 +36,16 @@
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY']%>&callback=initMap" async defer></script>
 
-
-  <h6 class="pt-3">交通機関：<%= @destination.transportation %></h6>
-  <h6 class="pt-3">ルート：<%= @destination.route %></h6>
-  <h6 class="pt-3">ホテル：<%= @destination.hotel %></h6>
-  <h6 class="pt-3">交通機関で利用可能な決済手段：<%= @destination.transportation_pays %></h6>
-  <h6 class="pt-3">現地で利用可能な決済手段：<%= @destination.destination_pays %></h6>
-  <h6 class="pt-3">宿泊先で利用可能な決済手段：<%= @destination.hotel_pays %></h6>
-  <h6 class="pt-3">外貨両替：<%= @destination.exchange %></h6>
-  <h6 class="pt-3">その他の情報：<%= @destination.other_info %></h6>
+  <table class="table">
+    <tr><th>Transportation（交通機関）</th><th><%= @destination.transportation %></th></tr>
+    <tr><th>Routes（ルート）</th><th><%= @destination.route %></th></tr>
+    <tr><th>Accommodation（宿泊地）</th><th><%= @destination.hotel %></th></tr>
+    <tr><th>Available payment method for transportation（交通機関での決済手段）</th><th><%= @destination.transportation_pays %></th></tr>
+    <tr><th>Available payment method at the spot（現地での決済手段）</th><th><%= @destination.destination_pays %></th></tr>
+    <tr><th>Available payment method for the accommodation（宿泊地での決済手段）</th><th><%= @destination.hotel_pays %></th></tr>
+    <tr><th>Currency exchange office（近くの外貨両替所）</th><th><%= @destination.exchange %></th></tr>
+    <tr><th>Othe info（その他の情報）</th><th><%= @destination.other_info %></th></tr>
+  </table>
 
   <div class="row pt-4">
     <div class="col-2">
@@ -53,17 +54,17 @@
       <% end %>
     </div>
     <div class="col-3">
-      <p>ユーザーネーム：<%= link_to user_path(@destination.user.id) do %><%= @destination.user.name %></p>
+      <p>Username：<%= link_to user_path(@destination.user.id) do %><%= @destination.user.name %></p>
       <% end %>
-      <p class="pt-4">投稿日：<%= @destination.created_at.strftime('%Y/%m/%d') %></p>
+      <p class="pt-4">Post date：<%= @destination.created_at.strftime('%Y/%m/%d') %></p>
     </div>
     <div class="col-2">
       <% if @destination.user == current_user %>
-        <%= link_to "編集", edit_destination_path(@destination), method: :get, class: 'btn btn-success' %>
+        <%= link_to "Edit", edit_destination_path(@destination), method: :get, class: 'btn btn-success' %>
       <% end %>
 
       <% if @destination.user == current_user %>
-        <%= link_to "削除", destination_path(@destination), method: :delete, class: 'btn btn-danger' %>
+        <%= link_to "Delete", destination_path(@destination), method: :delete, class: 'btn btn-danger' %>
       <% end %>
     </div>
   </div>

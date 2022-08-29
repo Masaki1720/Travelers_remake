@@ -5,7 +5,7 @@
       	<h3>Users search for "<%= @content %>"</h3>
         <%= render 'users/index', users: @records %>
       <% elsif @model == 'destination' %>
-      	<h3>Destinations search for "<%= @content %>"</h3>
+      	<h4 class="p-4">Destinations search for "<%= @content %>"</h4>
         <%= render 'destinations/index', destinations: @records %>
       <% end %>
     </tr>

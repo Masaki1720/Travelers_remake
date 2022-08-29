@@ -25,6 +25,11 @@ class DestinationsController < ApplicationController
 
   def edit
     @destination = Destination.find(params[:id])
+    if @destination.user == current_user
+      render "edit"
+    else
+      redirect_to destinations_path
+    end
   end
 
   def update

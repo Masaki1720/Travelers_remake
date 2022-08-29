@@ -30,8 +30,11 @@
     </div>
     <div>
       <% if current_user.admin? %>
-        <%= link_to "ユーザー一覧", users_path %>
-      <% end %>
+        <%= link_to "ユーザー一覧", users_path, class: 'btn btn-primary'  %>
+      <% end %></br></br>
+      <% if current_user.admin? && !(current_user == @user) %>
+        <%= link_to "ユーザー削除", users_path, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger' %>
+   　 <% end %>
     </div>
 
     <div class="col-md-6 mb-4">
@@ -52,10 +55,6 @@
       <p><%= destination.spot_introduction.truncate(60) %></p>
       <p><%= link_to "#{destination.post_comments.count} コメント", destination_path(destination.id) %></p>
     </div>
-    <% end %>
-
-    <% if current_user.admin? && !(current_user == @user) %>
-        <%= link_to "delete", users_path, method: :delete, data: { confirm: "You sure?" } %>
     <% end %>
   </div>
   <%= paginate @destinations %>

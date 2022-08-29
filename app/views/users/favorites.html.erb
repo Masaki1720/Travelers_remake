@@ -1,22 +1,33 @@
-<p>いいねした投稿一覧</p>
-
-<% @favorite_destinations.each do |favorite_destination| %>
-<div>
-  <%= link_to destination_path(favorite_destination.id) do %>
-   <%= image_tag favorite_destination.get_image(200,300) %>
+<div class="container">
+  <h4 class="p-4">Favorite Posts</h4>
+  <% @favorite_destinations.each do |favorite_destination| %>
+  <table class="table">
+    <tr>
+     <th>Image</th><th>Spot</th><th>User</th><th>Nationality</th><th>Spot Introduction</th>
+    </tr>
+    <tr>
+      <td style="width: 15%">
+        <%= link_to destination_path(favorite_destination.id) do %>
+        <%= image_tag favorite_destination.get_image(100,150) %>
+        <% end %>
+      </td>
+      <td style="width: 15%">
+        <%= link_to destination_path(favorite_destination.id) do %>
+        <%= favorite_destination.spot_name %>
+        <% end %>
+      </td>
+      <td style="width: 15%">
+        <%= link_to user_path(favorite_destination.user.id) do %>
+        <%= favorite_destination.user.name %>
+        <% end %>
+      </td>
+      <td style="width: 15%">
+        <%= favorite_destination.user.nationality %>
+      </td>
+      <td style="width: 40%">
+        <%= favorite_destination.spot_introduction %>
+      </td>
+    </tr>
+  </table>
   <% end %>
 </div>
-
-<div>
-  <%= link_to destination_path(favorite_destination.id) do %>
-   <%= favorite_destination.spot_name %>
-  <% end %>
-</div>
-
-<div>
-  <%= link_to user_path(favorite_destination.user.id) do %>
-   <%= favorite_destination.user.name %>
-  <% end %>
-</div>
-
-<% end %>
