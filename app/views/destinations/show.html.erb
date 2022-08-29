@@ -34,7 +34,7 @@
       });
     }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2XHE1nVcWvx6DIbgHAofteq1gLZwiI8Q&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY']%>&callback=initMap" async defer></script>
 
 
   <h6 class="pt-3">交通機関：<%= @destination.transportation %></h6>

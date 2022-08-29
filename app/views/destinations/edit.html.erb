@@ -119,7 +119,7 @@
         });
       }
       </script>
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2XHE1nVcWvx6DIbgHAofteq1gLZwiI8Q&callback=initMap" async defer></script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY']%>&callback=initMap" async defer></script>
       <div class="actions">
         <%= f.label :lat,"Lat" %>
         <%= f.text_field :lat,:value =>"", id: :lat %>
