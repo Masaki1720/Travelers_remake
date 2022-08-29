@@ -26,8 +26,6 @@
 - 旅先周辺の宿泊施設を調べるとき
 - 旅先での決済手段を調べるとき
 
-## 設計書
-
 ## 開発環境
 
 - OS：Linux(CentOS)
@@ -37,4 +35,4 @@
 - IDE：Cloud9
 
 ## 使用素材
-使用検討中です。
+- Sozaidas（フリー画像：http://sozaidas.com/103illust01.html）
