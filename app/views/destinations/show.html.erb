@@ -107,7 +107,4 @@
     <% if current_user.admin? && !(current_user == @destination.user) %>
       <%= link_to "delete", @destination, method: :delete, data: { confirm: "You sure?" } %>
     <% end %>
-
-
-
 </div>
