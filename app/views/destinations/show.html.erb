@@ -2,6 +2,9 @@
   <div class="row pb-4">
     <div class=col-5>
       <%= image_tag @destination.get_image(400,400) %>
+      <% @destination.tags.each do |tag| %>
+      <span class="label"><%= tag.name %></span>
+      <% end %>
     </div>
     <div class="col-7">
       <h4 class="pb-3"><%= @destination.spot_name %></h4>

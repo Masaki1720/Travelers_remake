@@ -3,6 +3,7 @@ class Destination < ApplicationRecord
   belongs_to :user
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :tags, dependent: :destroy
 
   validates :spot_name, presence: true
   validates :image, presence: true

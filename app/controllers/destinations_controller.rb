@@ -1,14 +1,5 @@
 class DestinationsController < ApplicationController
 
-  def show
-    @destination = Destination.find(params[:id])
-    @post_comment = PostComment.new
-  end
-
-  def index
-    @destinations = Destination.page(params[:page]).order(created_at: :desc)
-  end
-
   def new
     @destination = Destination.new
   end
@@ -17,10 +8,23 @@ class DestinationsController < ApplicationController
     @destination = Destination.new(destination_params)
     @destination.user_id = current_user.id
     if @destination.save
+      tags = Vision.get_image_data(@destination.image)
+      tags.each do |tag|
+      @destination.tags.create(name: tag)
+      end
       redirect_to destinations_path
     else
       render :new
     end
+  end
+
+  def index
+    @destinations = Destination.page(params[:page]).order(created_at: :desc)
+  end
+
+  def show
+    @destination = Destination.find(params[:id])
+    @post_comment = PostComment.new
   end
 
   def edit
