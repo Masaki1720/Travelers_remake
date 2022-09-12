@@ -71,16 +71,16 @@
       <% end %>
     </div>
   </div>
-  <div>
+  <div id="favorite_buttons_<%= @destination.id %>">
     <% if @destination.favorited_by?(current_user) %>
       <p>
-        <%= link_to destination_favorites_path(@destination), method: :delete do %>
+        <%= link_to destination_favorites_path(@destination), method: :delete, remote: true do %>
           ♥<%= @destination.favorites.count %> いいね
         <% end %>
       </p>
       <% else %>
       <p>
-        <%= link_to destination_favorites_path(@destination), method: :post do %>
+        <%= link_to destination_favorites_path(@destination), method: :post, remote: true do %>
           ♡<%= @destination.favorites.count %> いいね
         <% end %>
       </p>

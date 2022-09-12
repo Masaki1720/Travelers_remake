@@ -1,6 +1,6 @@
 <div class="container pt-3">
-  <div class="row">
-    <div class="col-4">
+  <div class="center-block">
+    <div class="text-center">
       <h4>Post form</h4>
       <% if @destination.errors.any? %>
       <%= @destination.errors.count %> errors occured.
@@ -59,17 +59,21 @@
         <%= f.text_field :exchange %>
         <h6><strong>Othe info（その他の情報）</strong></h6>
         <%= f.text_area :other_info %>
-    </div>
-    <div class="col-8">
-      <h6><strong>Post the map（マップを投稿）</strong></h6>
-      <input id="address" type="textbox" value="Tokyo station">
-      <input type="button" value="Search" onclick="codeAddress()">
-      <div>　</div>
+
+
+      <h6 class="pt-2 pb-1"><strong>Post the map（マップを投稿）</strong></h6>
+      <div class="pb-2">
+        <input id="address" type="textbox" value="Tokyo station">
+        <input type="button" value="Search" onclick="codeAddress()">
+      </div>
+      <div align="center">
       <div id='map'></div>
+      </div>
       <style>
       #map {
         height: 800px;
         width: 800px;
+
       }
       </style>
 
