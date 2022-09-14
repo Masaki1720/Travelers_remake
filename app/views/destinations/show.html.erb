@@ -1,6 +1,6 @@
 <div class="container pt-4">
   <div class="row pb-4">
-    <div class=col-5>
+    <div class="col-5">
       <%= image_tag @destination.get_image(400,400) %>
       <% @destination.tags.each do |tag| %>
       <span class="label"><%= tag.name %></span>

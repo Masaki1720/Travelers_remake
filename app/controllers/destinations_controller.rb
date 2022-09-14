@@ -39,6 +39,10 @@ class DestinationsController < ApplicationController
   def update
     @destination = Destination.find(params[:id])
     if @destination.update(destination_params)
+       tags = Vision.get_image_data(@destination.image)
+      tags.each do |tag|
+      @destination.tags.create(name: tag)
+    end
       redirect_to destination_path(@destination), notice: "You have updated post successfully."
     else
       render :edit
