@@ -53,7 +53,7 @@
           <%= f.text_field :hotel, class: 'form-control hotel' %>
         </div>
 
-        <h6><strong>Available payment method for transportation（交通機関での決済手段）</strong></h6>
+        <h6 class="pt-3"><strong>Available payment method for transportation（交通機関での決済手段）</strong></h6>
         <div class="field">
           <% %w(Cash Creditcard Debitcard PrepaidIC Applepay QRcode Paypay).each.with_index do |transportation_pay,i| %>
           <label>
@@ -62,7 +62,7 @@
           </label>
           <% end %>
         </div>
-        <h6><strong>Available payment method at the spot（現地での決済手段）</strong></h6>
+        <h6 class="pt-3"><strong>Available payment method at the spot（現地での決済手段）</strong></h6>
         <div class="field">
           <% %w(Cash Creditcard Debitcard PrepaidIC Applepay QRcode Paypay).each.with_index do |destination_pay,i| %>
           <label>
@@ -71,7 +71,7 @@
           </label>
           <% end %>
         </div>
-        <h6><strong>Available payment method for the accommodation（宿泊地での決済手段）</strong></h6>
+        <h6 class="pt-3"><strong>Available payment method for the accommodation（宿泊地での決済手段）</strong></h6>
         <div class="field">
           <% %w(Cash Creditcard Debitcard PrepaidIC Applepay QRcode Paypay).each.with_index do |hotel_pay,i| %>
           <label>
@@ -81,87 +81,88 @@
           <% end %>
         </div>
 
-        <div class="form-group">
+        <div class="form-group pt-3">
           <h6><strong>Currency exchange office（近くの外貨両替所）</strong></h6>
           <%= f.text_field :exchange, class: 'form-control exchange' %>
         </div>
 
-        <div class="form-group">
+        <div class="form-group pt-3">
           <h6><strong>Othe info（その他の情報）</strong></h6>
           <%= f.text_area :other_info, class: 'form-control other_info' %>
+        </div>
+      <div class="maparea">
+        <h6 class="pt-2 pb-1"><strong>Post the map（マップを投稿）</strong></h6>
+        <div class="pb-2">
+          <input id="address" type="textbox" value="Tokyo station">
+          <input type="button" value="Search" onclick="codeAddress()">
+        </div>
+        <div align="center">
+        <div id='map'></div>
+        </div>
+        <style>
+        #map {
+          height: 600px;
+          width: 90%;
 
+        }
+        </style>
 
-
-      <h6 class="pt-2 pb-1"><strong>Post the map（マップを投稿）</strong></h6>
-      <div class="pb-2">
-        <input id="address" type="textbox" value="Tokyo station">
-        <input type="button" value="Search" onclick="codeAddress()">
+        <script>
+        //初期マップの設定
+        let map
+        let marker
+        function initMap(){
+          geocoder = new google.maps.Geocoder()
+          map = new google.maps.Map(document.getElementById('map'), {
+            center:  {lat: 35.6803997, lng:139.7690174},  //東京
+            zoom: 15,
+          });
+        }
+        //検索後のマップ作成
+        let geocoder
+        let aft
+        function codeAddress(){
+          let inputAddress = document.getElementById('address').value;
+          geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+            if (status == 'OK') {
+                //マーカーが複数できないようにする
+                if (aft == true){
+                    marker.setMap(null);
+                }
+                //新しくマーカーを作成する
+                map.setCenter(results[0].geometry.location);
+                    marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location,
+                    draggable: true // ドラッグ可能にする
+                });
+                //二度目以降か判断
+                aft = true
+                //検索した時に緯度経度を入力する
+                document.getElementById('lat').value = results[0].geometry.location.lat();
+                document.getElementById('lng').value = results[0].geometry.location.lng();
+                // マーカーのドロップ（ドラッグ終了）時のイベント
+                google.maps.event.addListener( marker, 'dragend', function(ev){
+                    // イベントの引数evの、プロパティ.latLngが緯度経度
+                    document.getElementById('lat').value = ev.latLng.lat();
+                    document.getElementById('lng').value = ev.latLng.lng();
+                });
+            } else {
+              alert('該当する結果がありませんでした：' + status);
+            }
+          });
+        }
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY']%>&callback=initMap" async defer></script>
+        <div class="actions">
+          <%= f.label :lat,"Lat" %>
+          <%= f.text_field :lat,:value =>"", id: :lat %>
+          <%= f.label :lng,"Lng" %>
+          <%= f.text_field :lng,:value =>"", id: :lng %>
+        </div>
       </div>
-      <div align="center">
-      <div id='map'></div>
-      </div>
-      <style>
-      #map {
-        height: 600px;
-        width: 90%;
 
-      }
-      </style>
-
-      <script>
-      //初期マップの設定
-      let map
-      let marker
-      function initMap(){
-        geocoder = new google.maps.Geocoder()
-        map = new google.maps.Map(document.getElementById('map'), {
-          center:  {lat: 35.6803997, lng:139.7690174},  //東京
-          zoom: 15,
-        });
-      }
-      //検索後のマップ作成
-      let geocoder
-      let aft
-      function codeAddress(){
-        let inputAddress = document.getElementById('address').value;
-        geocoder.geocode( { 'address': inputAddress}, function(results, status) {
-          if (status == 'OK') {
-              //マーカーが複数できないようにする
-              if (aft == true){
-                  marker.setMap(null);
-              }
-              //新しくマーカーを作成する
-              map.setCenter(results[0].geometry.location);
-                  marker = new google.maps.Marker({
-                  map: map,
-                  position: results[0].geometry.location,
-                  draggable: true // ドラッグ可能にする
-              });
-              //二度目以降か判断
-              aft = true
-              //検索した時に緯度経度を入力する
-              document.getElementById('lat').value = results[0].geometry.location.lat();
-              document.getElementById('lng').value = results[0].geometry.location.lng();
-              // マーカーのドロップ（ドラッグ終了）時のイベント
-              google.maps.event.addListener( marker, 'dragend', function(ev){
-                  // イベントの引数evの、プロパティ.latLngが緯度経度
-                  document.getElementById('lat').value = ev.latLng.lat();
-                  document.getElementById('lng').value = ev.latLng.lng();
-              });
-          } else {
-            alert('該当する結果がありませんでした：' + status);
-          }
-        });
-      }
-      </script>
-      <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY']%>&callback=initMap" async defer></script>
-      <div class="actions">
-        <%= f.label :lat,"Lat" %>
-        <%= f.text_field :lat,:value =>"", id: :lat %>
-        <%= f.label :lng,"Lng" %>
-        <%= f.text_field :lng,:value =>"", id: :lng %>
-      </div>
-      <div class="pt-5">
+      <div class="p-4">
       <%= f.submit 'Post', class: 'btn btn-info' %>
       </div>
       <% end %>
