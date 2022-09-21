@@ -1,7 +1,7 @@
 <div class="container">
   <h2 class="p-4">プロフィール編集</h2>
   <div class="row">
-    <%= form_with model: @user do |f| %>
+    <%= form_with model: @user, method: :patch do |f| %>
 
     <div class="col-4">
       <label for="inputName">Name</label>

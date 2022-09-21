@@ -1,33 +1,35 @@
-<div id="top">
-  <div id="main">
-    <div class="row pb-4">
-      <div class="col-3 pt-4 pl-5">
-        <%= image_tag asset_path("logo1.2.png"), size: '250x250' %>
-        <h5 class="pt-3 pl-4">About</h5>
-        <h5 class="pt-2 pl-4">Service</h5>
-        <h5 class="pt-2 pl-4">News</h5>
-        <h5 class="pt-2 pl-4">FAQ</h5>
-        <h5 class="pt-2 pl-4">Contact</h5>
-      </div>
-      <div class="col-9 p-5">
-        <h5 class="p-3">Welcome to Travelers!!</h5>
-        <div class="p-3">
-          <h6>This app makes your travel more memorable and efficient.</h6>
-          <h6>You can post and look for a lot of info you need while in travel, like transportation and payment method.</h6>
-          <h6>Share your photos, stories with the friends and followers you care about.</h6>
+<div class="container">
+  <div id="top">
+    <div id="main">
+      <div class="row pb-4">
+        <div class="col-3 pt-4 pl-5">
+          <%= image_tag asset_path("logo1.2.png"), size: '250x250' %>
+          <h5 class="pt-3 pl-4">About</h5>
+          <h5 class="pt-2 pl-4">Service</h5>
+          <h5 class="pt-2 pl-4">News</h5>
+          <h5 class="pt-2 pl-4">FAQ</h5>
+          <h5 class="pt-2 pl-4">Contact</h5>
         </div>
-        <div class="p-3">
-          <h6>トラベラーズは日本でのあなたの旅をより思い出深く、また計画的にするアプリです！</h6>
-          <h6>写真やマップの他、現地までの交通機関や決済手段を投稿、検索できます！</h6>
-          <h6>旅先の情報をシェアし、他の旅人と交流しましょう！</h6>
+        <div class="col-9 p-5">
+          <h5 class="p-3">Welcome to Travelers!!</h5>
+          <div class="p-3">
+            <h6>This app makes your travel more memorable and efficient.</h6>
+            <h6>You can post and look for a lot of info you need while in travel, like transportation and payment method.</h6>
+            <h6>Share your photos, stories with the friends and followers you care about.</h6>
+          </div>
+          <div class="p-3">
+            <h6>トラベラーズは日本でのあなたの旅をより思い出深く、また計画的にするアプリです！</h6>
+            <h6>写真やマップの他、現地までの交通機関や決済手段を投稿、検索できます！</h6>
+            <h6>旅先の情報をシェアし、他の旅人と交流しましょう！</h6>
+          </div>
+          <div class="p-3">
+            <div class="p-2"><%= link_to "New Post!（新規投稿）", new_destination_path, class: 'btn btn-success' %></div>
+            <div class="p-2"><%= link_to "All posts! （投稿一覧）", destinations_path, class: 'btn btn-info' %></div>
+            <div class="p-2"><%= link_to "Guest login!（ゲストログイン）　", users_guest_sign_in_path, method: :post, class: 'btn btn-warning' %></div>
+            <div class="p-2"><%= link_to "Create Account!（ユーザー登録）", new_user_registration_path, class: 'btn btn-primary' %></div>
+          </div>
         </div>
-        <div class="p-3">
-          <div class="p-2"><%= link_to "New Post!（新規投稿）", new_destination_path, class: 'btn btn-success' %></div>
-          <div class="p-2"><%= link_to "All posts! （投稿一覧）", destinations_path, class: 'btn btn-info' %></div>
-          <div class="p-2"><%= link_to "Guest login!（ゲストログイン）　", users_guest_sign_in_path, method: :post, class: 'btn btn-warning' %></div>
-          <div class="p-2"><%= link_to "Create Account!（ユーザー登録）", new_user_registration_path, class: 'btn btn-primary' %></div>
-        </div>
-      </div>
+    </div>
   </div>
 </div>
 
