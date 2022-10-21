@@ -1,28 +1,28 @@
-<% if @users.exists? %>
-<table class='table'>
-  <thead>
-    <tr>
-      <th>image</th>
-      <th>name</th>
-      <th>Introduction</th>
-      <th>Followings</th>
-      <th>Followers</th>
-      <th colspan="6"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
+<div class="container">
+  <% if @users.exists? %>
+  <table class='table'>
+    <thead>
       <tr>
-        <td><%= image_tag user.get_profile_image(50,50) %></td>
-        <td><%= user.name %></td>
-        <td><%= user.introduction %></td>
-        <td><%= user.followings.count %></td>
-        <td><%= user.followers.count %></td>
-        <td><%= link_to 'Show', user, class: "user_#{user.id}, btn btn-success" %></td>
+        <th>image</th>
+        <th>name</th>
+        <th>Followings</th>
+        <th>Followers</th>
+        <th colspan="5"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-<% else %>
-  <p>ユーザーはいません</p>
-<% end %>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= image_tag user.get_profile_image(50,50) %></td>
+          <td><%= user.name %></td>
+          <td><%= user.followings.count %></td>
+          <td><%= user.followers.count %></td>
+          <td><%= link_to 'Show', user, class: "user_#{user.id}, btn btn-success" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% else %>
+    <p>ユーザーはいません</p>
+  <% end %>
+</div>

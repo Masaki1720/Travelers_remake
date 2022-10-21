@@ -1,7 +1,6 @@
 <div class="container pt-4">
-  <div class="row pb-4">
     <div class="col-5">
-      <div><%= image_tag @destination.get_image(400,400) %></div>
+      <div><%= image_tag @destination.get_image(300,300) %></div>
       <div>
         <% @destination.tags.each do |tag| %>
         <span class="label"><%= tag.name %></span>
@@ -14,11 +13,10 @@
       <h6 class="pt-3">Prefecture（県）：<%= @destination.prefecture %></h6>
       <h6 class="pt-3">City（市町村）：<%= @destination.city %></h6>
     </div>
-  </div>
     <div id='map'></div>
     <style>
     #map {
-      height: 400px;
+      height: 300px;
       width: 100%;
     }
     </style>
@@ -53,17 +51,17 @@
   </table>
 
   <div class="row pt-4">
-    <div class="col-2">
+    <div class="col-3">
       <%= link_to user_path(@destination.user.id) do %>
-      <p><%= image_tag @destination.user.get_profile_image(100,100), class:"rounded-circle"; %></p>
+      <p><%= image_tag @destination.user.get_profile_image(80,80), class:"rounded-circle"; %></p>
       <% end %>
     </div>
-    <div class="col-3">
+    <div class="col-4">
       <p>Username：<%= link_to user_path(@destination.user.id) do %><%= @destination.user.name %></p>
       <% end %>
       <p class="pt-4">Post date：<%= @destination.created_at.strftime('%Y/%m/%d') %></p>
     </div>
-    <div class="col-2">
+    <div class="col-1">
       <% if @destination.user == current_user %>
         <%= link_to "Edit", edit_destination_path(@destination), method: :get, class: 'btn btn-success' %>
       <% end %>
